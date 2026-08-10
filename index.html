@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#0A0A0A">
 <title>TO'Y TAKLIFNOMASI | Umidjon &amp; Ezoza </title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,700&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,700&family=Jost:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;height:100dvh;overflow:hidden;touch-action:none;overscroll-behavior:none;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
@@ -25,8 +25,26 @@ body{background:var(--TBG,#F5EAD5);font-family:'Jost',sans-serif}
 .dots{position:fixed;right:14px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;z-index:50}
 .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);border:1.5px solid rgba(255,255,255,.5);transition:all .3s;cursor:pointer}
 .dot.on{background:var(--TA,#C9A227);border-color:var(--TA,#C9A227);transform:scale(1.3)}
-.swipe-hint{position:fixed;bottom:60px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.5);font-size:.65rem;letter-spacing:.1em;z-index:50;animation:hintPulse 2s ease-in-out infinite}
-@keyframes hintPulse{0%,100%{opacity:.5;transform:translateX(-50%) translateY(0)}50%{opacity:.8;transform:translateX(-50%) translateY(-5px)}}
+
+/* Tepaga suring tugmasi uslubi */
+#shint, .swipe-hint {
+  position: fixed !important;
+  bottom: 60px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+  font-size: 0.85rem !important;
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase !important;
+  text-shadow: 0 0 10px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.8) !important;
+  z-index: 9999 !important;
+  animation: hintPulse 2s ease-in-out infinite !important;
+  pointer-events: none !important;
+}
+
+@keyframes hintPulse{0%,100%{opacity:1;transform:translateX(-50%) translateY(0)}50%{opacity:.4;transform:translateX(-50%) translateY(-6px)}}
+
 .t-nikoh{--TP:#14323F;--TA:#C9A227;--TBG:radial-gradient(ellipse at 50% 30%,#FFFAED 0%,#F5E8C8 45%,#EBD9A8 100%);--TS:#8A2E28;--TA2:#E7CE8E}
 .t-sunnat{--TP:#0C3D28;--TA:#CEA020;--TBG:radial-gradient(ellipse at 50% 30%,#F4FCEF 0%,#E2F2DF 45%,#CAE8CA 100%);--TS:#1E5E38;--TA2:#D8C060}
 .t-tugilgan{--TP:#4A2280;--TA:#E05890;--TBG:radial-gradient(ellipse at 50% 30%,#FEF5FF 0%,#F5E0FF 45%,#E8C8FF 100%);--TS:#D05800;--TA2:#F0A0C0}
@@ -47,7 +65,20 @@ body{background:var(--TBG,#F5EAD5);font-family:'Jost',sans-serif}
 .s-loc:active{transform:scale(.96)}
 .s-guest{font-family:'Great Vibes',cursive;font-size:2.6rem;color:var(--TP);margin:5px 0}
 .s-big{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;letter-spacing:.1em;color:var(--TP);line-height:1.4}
-.s-sig{font-family:'Cormorant Garamond',serif;font-size:.82rem;font-style:italic;color:var(--TP);opacity:.65;margin-top:10px}
+
+/* Oilalar nomi uchun oydinlashtirilgan va yiriklashtirilgan uslub */
+.s-sig{
+  font-family: 'Jost', sans-serif !important;
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  color: #FFD700 !important;
+  margin-top: 15px !important;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.4) !important;
+  opacity: 1 !important;
+}
+
 .s-orn{width:90px;height:90px;margin-bottom:14px}
 .s-orn svg{width:100%;height:100%}
 .mcal{background:rgba(255,255,255,.88);border:1px solid rgba(0,0,0,.06);border-radius:6px;padding:9px 11px;width:218px;margin:10px auto 0;box-shadow:0 4px 16px rgba(0,0,0,.1)}
@@ -105,20 +136,11 @@ body{background:var(--TBG,#F5EAD5);font-family:'Jost',sans-serif}
 .cd.wd{color:var(--TA)!important}
 .cd.hi{background:var(--TA)!important;color:#000!important}
 .s-date-card{background:rgba(255,255,255,.06)!important;border-color:rgba(255,255,255,.08)!important}
-.s-text,.s-rsvp,.s-venue,.s-sig{color:var(--TA2)!important}
+.s-text,.s-rsvp,.s-venue{color:var(--TA2)!important}
 .s-day-num{color:var(--TA)!important}
 .s-cn{color:#0A0A0A!important}
 .s-cl{color:rgba(0,0,0,.55)!important}
 .s-loc{background:rgba(255,255,255,.08)!important;border-color:rgba(255,255,255,.12)!important;color:var(--TA2)!important}
-.swipe-hint{color:var(--TA2)}
-
-<style>
-  /* Mavjud CSS kodingiz oxiriga (</style> yopilishidan oldin) ushbu qismni qo'shing */
-  #shint, .swipe-hint {
-    color: #ffffff !important;
-    font-weight: bold !important;
-    font-weight: 700 !important;
-  }
 </style>
 </head>
 <body>
@@ -127,11 +149,11 @@ body{background:var(--TBG,#F5EAD5);font-family:'Jost',sans-serif}
 <div class="reel" id="reel"></div>
 </div>
 <div class="dots" id="dots"></div>
-<div class="swipe-hint" id="shint">Tepaga suring</div>
+<div class="swipe-hint" id="shint">TEPAGA SURING</div>
 <button class="music-btn" id="mb" onclick="tgl()">&#9835;</button>
 <audio id="bgm" loop autoplay playsinline webkit-playsinline preload="auto" src="music.m4a"></audio>
 <script>
-var D={"type":"nikoh","a":"Umidjon","b":"Ezoza ","s":"Aziz","eye":"TO'Y TAKLIFNOMASI","tag":"Ikki qalbning bir umrga birlashuvi sharafiga sizni to'yimizga taklif qilamiz","date":"2026-08-24","time":"19:00","venue":"\"Istiqlol\" to'yxonasi","addr":"Navoiy viloyati , Xatirchi tumani , Chechak ota MFY","loc":"https://maps.app.goo.gl/ZfvyF3WTAYpjC7AR7","guest":"Mehmon","rsvp":"Sizni ushbu qutlug' kunimizda mehmonimiz bo'lishga taklif etamiz.","sig":"Zoxiddin ota va Olim ota oilalari nomidan","card":"4073 4200 6843 1695","owner":"MUTABAR BOYMANOVA","brand":"VISA","ep":"20 000 so'm","pp":"10 000 so'm"};
+var D={"type":"nikoh","a":"Umidjon","b":"Ezoza ","s":"Aziz","eye":"TO'Y TAKLIFNOMASI","tag":"Ikki qalbning bir umrga birlashuvi sharafiga sizni to'yimizga taklif qilamiz","date":"2026-08-24","time":"19:00","venue":"\"Istiqlol\" to'yxonasi","addr":"Navoiy viloyati , Xatirchi tumani , Chechak ota MFY","loc":"https://maps.app.goo.gl/ZfvyF3WTAYpjC7AR7","guest":"Mehmon","rsvp":"Sizni ushbu qutlug' kunimizda mehmonimiz bo'lishga taklif etamiz.","sig":"ZOXIDDIN OTA VA OLIM OTA OILALARI NOMIDAN","card":"4073 4200 6843 1695","owner":"MUTABAR BOYMANOVA","brand":"VISA","ep":"20 000 so'm","pp":"10 000 so'm"};
 var MONTHS=['Yanvar','Fevral','Mart','Aprel','May','Iyun','Iyul','Avgust','Sentabr','Oktabr','Noyabr','Dekabr'];
 var MU=MONTHS.map(function(m){return m.toUpperCase()});
 var playing=false,cdTmr=null,cur=0,total=3;
@@ -305,7 +327,5 @@ loud().then(function(){playing=true;icon()}).catch(function(){
 icon();
 goTo(0);
 </script>
-
-
 </body>
 </html>
