@@ -12,7 +12,17 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;height:100dvh;overflow:hidden;touch-action:none;overscroll-behavior:none;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
-body{background:#050505;font-family:'Jost',sans-serif;color:#fff}
+body{background:#030303;font-family:'Jost',sans-serif;color:#fff}
+
+/* Interaktiv sehrli iz uchun canvas */
+#magicCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 99999;
+}
 
 .vp{
   width:100vw;
@@ -20,7 +30,7 @@ body{background:#050505;font-family:'Jost',sans-serif;color:#fff}
   height:100dvh;
   position:relative;
   overflow:hidden;
-  background: radial-gradient(circle at 50% 20%, #1a150a 0%, #080705 60%, #020202 100%) !important;
+  background: radial-gradient(circle at 50% 30%, #1c160b 0%, #090704 60%, #020202 100%) !important;
 }
 
 .reel{position:absolute;inset:0;display:flex;flex-direction:column;transition:transform .55s cubic-bezier(.25,1,.35,1);will-change:transform}
@@ -40,7 +50,7 @@ body{background:#050505;font-family:'Jost',sans-serif;color:#fff}
   overflow:hidden;
 }
 
-.sc-c{position:absolute;width:50px;height:50px;pointer-events:none;filter:drop-shadow(0 0 6px rgba(212,175,55,0.4))}
+.sc-c{position:absolute;width:50px;height:50px;pointer-events:none;filter:drop-shadow(0 0 6px rgba(212,175,55,0.4));z-index:4}
 .sc-c.tl{top:16px;left:16px}.sc-c.tr{top:16px;right:16px}
 .sc-c.bl{bottom:16px;left:16px}.sc-c.br{bottom:16px;right:16px}
 
@@ -63,23 +73,21 @@ body{background:#050505;font-family:'Jost',sans-serif;color:#fff}
   letter-spacing: 0.22em !important;
   text-transform: uppercase !important;
   padding: 8px 20px !important;
-  background: rgba(15, 12, 5, 0.7) !important;
-  border: 1px solid rgba(212, 175, 55, 0.5) !important;
+  background: rgba(15, 12, 5, 0.75) !important;
+  border: 1px solid rgba(212, 175, 55, 0.6) !important;
   border-radius: 30px !important;
   backdrop-filter: blur(10px) !important;
   -webkit-backdrop-filter: blur(10px) !important;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.6), 0 0 12px rgba(212,175,55,0.3) !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.6), 0 0 15px rgba(212,175,55,0.4) !important;
   z-index: 9999 !important;
   animation: vipPulse 2.2s cubic-bezier(.4,0,.6,1) infinite !important;
   pointer-events: none !important;
 }
 
 @keyframes vipPulse{
-  0%,100%{opacity:1;transform:translateX(-50%) translateY(0) scale(1);box-shadow:0 4px 20px rgba(0,0,0,0.6), 0 0 12px rgba(212,175,55,0.3)}
-  50%{opacity:.75;transform:translateX(-50%) translateY(-8px) scale(1.03);box-shadow:0 6px 25px rgba(0,0,0,0.8), 0 0 20px rgba(212,175,55,0.6)}
+  0%,100%{opacity:1;transform:translateX(-50%) translateY(0) scale(1);box-shadow:0 4px 20px rgba(0,0,0,0.6), 0 0 15px rgba(212,175,55,0.4)}
+  50%{opacity:.75;transform:translateX(-50%) translateY(-8px) scale(1.03);box-shadow:0 6px 25px rgba(0,0,0,0.8), 0 0 22px rgba(212,175,55,0.7)}
 }
-
-.t-nikoh{--TP:#FFD700;--TA:#D4AF37;--TS:#FFF;--TA2:#F7E396}
 
 .s-eye{
   font-family: 'Cinzel', serif;
@@ -89,7 +97,7 @@ body{background:#050505;font-family:'Jost',sans-serif;color:#fff}
   text-transform: uppercase;
   color: #D4AF37;
   margin-bottom: 8px;
-  text-shadow: 0 0 10px rgba(212,175,55,0.3);
+  text-shadow: 0 0 10px rgba(212,175,55,0.4);
 }
 
 .s-names{
@@ -97,7 +105,7 @@ body{background:#050505;font-family:'Jost',sans-serif;color:#fff}
   color: #FFF;
   font-size: 3.5rem;
   line-height: 1.15;
-  text-shadow: 0 0 20px rgba(212,175,55,0.4), 0 2px 10px rgba(0,0,0,0.8);
+  text-shadow: 0 0 20px rgba(212,175,55,0.5), 0 2px 10px rgba(0,0,0,0.9);
 }
 
 .s-amp{
@@ -162,7 +170,7 @@ body{background:#050505;font-family:'Jost',sans-serif;color:#fff}
   font-size: 3rem;
   color: #D4AF37;
   margin: 6px 0;
-  text-shadow: 0 0 15px rgba(212,175,55,0.4);
+  text-shadow: 0 0 15px rgba(212,175,55,0.5);
 }
 
 .s-big{
@@ -175,7 +183,7 @@ body{background:#050505;font-family:'Jost',sans-serif;color:#fff}
   text-shadow: 0 0 12px rgba(255,255,255,0.3);
 }
 
-/* Katta oilalar nomining mukammal ko'rinishi */
+/* Zoxiddin ota va Olim ota oilalari */
 .s-sig{
   font-family: 'Jost', sans-serif !important;
   font-size: 0.88rem !important;
@@ -185,20 +193,20 @@ body{background:#050505;font-family:'Jost',sans-serif;color:#fff}
   color: #D4AF37 !important;
   margin-top: 18px !important;
   padding: 10px 16px !important;
-  background: linear-gradient(135deg, rgba(212,175,55,0.12) 0%, rgba(0,0,0,0.4) 100%) !important;
-  border: 1px solid rgba(212,175,55,0.3) !important;
+  background: linear-gradient(135deg, rgba(212,175,55,0.15) 0%, rgba(0,0,0,0.5) 100%) !important;
+  border: 1px solid rgba(212,175,55,0.4) !important;
   border-radius: 8px !important;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5), inset 0 0 10px rgba(212,175,55,0.1) !important;
-  text-shadow: 0 0 10px rgba(212, 175, 55, 0.6) !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.6), inset 0 0 10px rgba(212,175,55,0.15) !important;
+  text-shadow: 0 0 12px rgba(212, 175, 55, 0.7) !important;
   line-height: 1.5 !important;
 }
 
-.s-orn{width:90px;height:90px;margin-bottom:12px;filter:drop-shadow(0 0 12px rgba(212,175,55,0.5))}
+.s-orn{width:90px;height:90px;margin-bottom:12px;filter:drop-shadow(0 0 14px rgba(212,175,55,0.6))}
 .s-orn svg{width:100%;height:100%}
 
 .mcal{
   background: rgba(18, 15, 10, 0.65) !important;
-  border: 1px solid rgba(212, 175, 55, 0.3) !important;
+  border: 1px solid rgba(212, 175, 55, 0.35) !important;
   border-radius: 12px !important;
   padding: 12px 14px !important;
   width: 230px !important;
@@ -216,7 +224,7 @@ body{background:#050505;font-family:'Jost',sans-serif;color:#fff}
 .s-cd{display:flex;gap:6px;justify-content:center;margin-top:14px}
 .s-cb{
   background: linear-gradient(180deg, rgba(30,25,15,0.9) 0%, rgba(10,8,5,0.9) 100%);
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  border: 1px solid rgba(212, 175, 55, 0.35);
   color:#fff;
   width:54px;
   height:54px;
@@ -238,8 +246,8 @@ body{background:#050505;font-family:'Jost',sans-serif;color:#fff}
   align-items:center;
   gap:14px;
   margin:12px auto 6px;
-  background: rgba(20, 16, 10, 0.6) !important;
-  border: 1px solid rgba(212, 175, 55, 0.3) !important;
+  background: rgba(20, 16, 10, 0.65) !important;
+  border: 1px solid rgba(212, 175, 55, 0.35) !important;
   border-radius: 10px !important;
   padding: 10px 20px !important;
   backdrop-filter: blur(8px) !important;
@@ -259,24 +267,25 @@ body{background:#050505;font-family:'Jost',sans-serif;color:#fff}
   background: rgba(212, 175, 55, 0.15);
   padding: 4px 12px;
   border-radius: 12px;
-  border: 1px solid rgba(212, 175, 55, 0.25);
+  border: 1px solid rgba(212, 175, 55, 0.3);
 }
 
-.sc::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse at 50% 50%, rgba(212,175,55,0.05) 0%, transparent 80%)}
-.sc::after{content:'';position:absolute;inset:12px;border:1px solid rgba(212,175,55,0.2);border-radius:4px;pointer-events:none;z-index:1}
+.sc::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background:radial-gradient(circle at 50% 50%, rgba(212,175,55,0.06) 0%, transparent 80%)}
+.sc::after{content:'';position:absolute;inset:12px;border:1px solid rgba(212,175,55,0.25);border-radius:4px;pointer-events:none;z-index:1}
 
-.fx{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
+/* Uchala sahifada ishlaydigan fozaviy animatsiya */
+.fx{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:2}
 .fx i{position:absolute;top:112%;display:block;opacity:0;animation:fxFloat var(--d,10s) linear infinite;animation-delay:var(--delay,0s);will-change:top,transform,opacity}
-.fx i svg{width:100%;height:100%;display:block;filter:drop-shadow(0 0 6px rgba(212,175,55,0.6))}
+.fx i svg{width:100%;height:100%;display:block;filter:drop-shadow(0 0 8px rgba(212,175,55,0.7))}
 @keyframes fxFloat{
-  0%{top:112%;opacity:0;transform:translateX(0) rotate(0) scale(.45)}
-  10%{opacity:var(--o,.5)}
-  50%{transform:translateX(var(--dx,16px)) rotate(calc(var(--r,140deg) * .5)) scale(1)}
-  90%{opacity:var(--o,.5)}
-  100%{top:-16%;opacity:0;transform:translateX(0) rotate(var(--r,140deg)) scale(.85)}
+  0%{top:112%;opacity:0;transform:translateX(0) rotate(0) scale(.4)}
+  12%{opacity:var(--o,.6)}
+  50%{transform:translateX(var(--dx,18px)) rotate(calc(var(--r,140deg) * .5)) scale(1.1)}
+  88%{opacity:var(--o,.6)}
+  100%{top:-16%;opacity:0;transform:translateX(0) rotate(var(--r,140deg)) scale(.8)}
 }
 
-@keyframes goldPulse{0%,100%{filter:drop-shadow(0 0 8px rgba(212,175,55,0.4))}50%{filter:drop-shadow(0 0 18px rgba(212,175,55,0.8))}}
+@keyframes goldPulse{0%,100%{filter:drop-shadow(0 0 8px rgba(212,175,55,0.4))}50%{filter:drop-shadow(0 0 20px rgba(212,175,55,0.9))}}
 .s-orn{animation:goldPulse 3.5s ease-in-out infinite,float 3.5s ease-in-out infinite}
 
 .sc-topband{display:flex;align-items:center;gap:7px;width:74%;margin-bottom:8px}
@@ -289,8 +298,8 @@ body{background:#050505;font-family:'Jost',sans-serif;color:#fff}
   width:44px;
   height:44px;
   border-radius:50%;
-  background:rgba(15,12,5,0.7);
-  border:1px solid rgba(212,175,55,0.4);
+  background:rgba(15,12,5,0.75);
+  border:1px solid rgba(212,175,55,0.5);
   color:#D4AF37;
   font-size:1.1rem;
   cursor:pointer;
@@ -299,13 +308,19 @@ body{background:#050505;font-family:'Jost',sans-serif;color:#fff}
   justify-content:center;
   z-index:100;
   backdrop-filter:blur(8px);
-  box-shadow:0 4px 15px rgba(0,0,0,0.5), 0 0 10px rgba(212,175,55,0.2)
+  box-shadow:0 4px 15px rgba(0,0,0,0.5), 0 0 12px rgba(212,175,55,0.3)
 }
+
+.sc>*{position:relative;z-index:3}
 
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 </style>
 </head>
 <body>
+
+<!-- Interaktiv Sehrli Zarrachalar Canvasi -->
+<canvas id="magicCanvas"></canvas>
+
 <template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300"><rect width="300" height="300" fill="#0f0d0a"/><circle cx="150" cy="150" r="86" fill="none" stroke="#c9a239" stroke-width="3"/><text x="150" y="168" text-anchor="middle" font-family="Georgia,serif" font-size="72" fill="#c9a239">U&amp;E</text></svg></template>
 <div class="vp t-nikoh" id="vp">
 <div class="reel" id="reel"></div>
@@ -314,6 +329,7 @@ body{background:#050505;font-family:'Jost',sans-serif;color:#fff}
 <div class="swipe-hint" id="shint">TEPAGA SURING</div>
 <button class="music-btn" id="mb" onclick="tgl()">&#9835;</button>
 <audio id="bgm" loop autoplay playsinline webkit-playsinline preload="auto" src="music.m4a"></audio>
+
 <script>
 var D={
   "type":"nikoh",
@@ -337,16 +353,16 @@ var MU=MONTHS.map(function(m){return m.toUpperCase()});
 var playing=false,cdTmr=null,cur=0,total=3;
 
 var ORNS={
-nikoh:'<svg viewBox="0 0 120 90" fill="none"><circle cx="42" cy="48" r="20" stroke="#D4AF37" stroke-width="2.5"/><circle cx="78" cy="48" r="20" stroke="#D4AF37" stroke-width="2.5"/><path d="M60 20 C60 12 50 8 50 16 C50 23 60 29 60 29 C60 29 70 23 70 16 C70 8 60 12 60 20Z" fill="#FFF" opacity=".8"/></svg>'
+nikoh:'<svg viewBox="0 0 120 90" fill="none"><circle cx="42" cy="48" r="20" stroke="#D4AF37" stroke-width="2.5"/><circle cx="78" cy="48" r="20" stroke="#D4AF37" stroke-width="2.5"/><path d="M60 20 C60 12 50 8 50 16 C50 23 60 29 60 29 C60 29 70 23 70 16 C70 8 60 12 60 20Z" fill="#FFF" opacity=".85"/></svg>'
 };
 
 function e(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 
 function crnrs(){
-  return'<svg class="sc-c tl" viewBox="0 0 60 60" fill="none"><path d="M4 28 L4 4 L28 4" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" opacity=".7"/><circle cx="4" cy="4" r="2" fill="#D4AF37"/></svg>'
-  +'<svg class="sc-c tr" viewBox="0 0 60 60" fill="none"><path d="M56 28 L56 4 L32 4" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" opacity=".7"/><circle cx="56" cy="4" r="2" fill="#D4AF37"/></svg>'
-  +'<svg class="sc-c bl" viewBox="0 0 60 60" fill="none"><path d="M4 32 L4 56 L28 56" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" opacity=".7"/><circle cx="4" cy="56" r="2" fill="#D4AF37"/></svg>'
-  +'<svg class="sc-c br" viewBox="0 0 60 60" fill="none"><path d="M56 32 L56 56 L32 56" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" opacity=".7"/><circle cx="56" cy="56" r="2" fill="#D4AF37"/></svg>';
+  return'<svg class="sc-c tl" viewBox="0 0 60 60" fill="none"><path d="M4 28 L4 4 L28 4" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" opacity=".75"/><circle cx="4" cy="4" r="2" fill="#D4AF37"/></svg>'
+  +'<svg class="sc-c tr" viewBox="0 0 60 60" fill="none"><path d="M56 28 L56 4 L32 4" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" opacity=".75"/><circle cx="56" cy="4" r="2" fill="#D4AF37"/></svg>'
+  +'<svg class="sc-c bl" viewBox="0 0 60 60" fill="none"><path d="M4 32 L4 56 L28 56" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" opacity=".75"/><circle cx="4" cy="56" r="2" fill="#D4AF37"/></svg>'
+  +'<svg class="sc-c br" viewBox="0 0 60 60" fill="none"><path d="M56 32 L56 56 L32 56" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" opacity=".75"/><circle cx="56" cy="56" r="2" fill="#D4AF37"/></svg>';
 }
 
 var FXR='<svg viewBox="0 0 24 24"><circle cx="12" cy="14" r="6.5" fill="none" stroke="#D4AF37" stroke-width="2.2"/><path d="M9 5 L12 8 L15 5 L13.5 3 L10.5 3Z" fill="#FFF"/></svg>';
@@ -363,7 +379,7 @@ function fxf(){
     var delay=(-Math.random()*d).toFixed(1);
     var dx=Math.round((Math.random()*2-1)*34);
     var r=Math.round((Math.random()*2-1)*220);
-    var o=(0.2+Math.random()*0.4).toFixed(2);
+    var o=(0.25+Math.random()*0.45).toFixed(2);
     html+='<i style="left:'+x+'%;width:'+sz+'px;height:'+sz+'px;--d:'+d+'s;--delay:'+delay+'s;--dx:'+dx+'px;--r:'+r+'deg;--o:'+o+'">'+m+'</i>';
   }
   return '<div class="fx">'+html+'</div>';
@@ -406,9 +422,10 @@ function buildScenes(){
   var p=fdp(D.date);
   var locBtn='<a href="'+D.loc+'" target="_blank" rel="noopener" class="s-loc ai" style="text-decoration:none"><svg viewBox="0 0 24 24" width="16" height="16" fill="#D4AF37" style="flex-shrink:0"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg><span>Xaritada Ko\'rish</span></a>';
   
+  /* BARCHA SAHIFALARGA FXF() HARAKATLANUVCHI EFFEKTI QO'SHILDI */
   var s1='<div class="sc">'+crnrs()+fxf()+'<div class="sc-vign t"></div>'+tband()+'<div class="sc-orn-wrap ai"><div class="s-orn">'+orn+'</div></div><div class="s-eye ai">'+e(D.eye)+'</div>'+nh()+sdiv()+'<div class="mcal ai">'+cal(D.date)+'</div><div class="sc-vign b"></div></div>';
   
-  var s2='<div class="sc">'+crnrs()+'<div class="sc-vign t"></div><div class="s-eye ai">'+e(D.eye)+'</div>'+sdiv()+'<div class="s-text ai">'+e(D.tag)+'</div><div class="s-date-card ai"><span class="s-day-num">'+p.dy+'</span><div class="s-date-r"><span class="s-month-nm">'+p.mo+'</span><span class="s-year-nm">'+p.yr+'</span></div></div><div class="s-time-pill ai">SOAT '+e(D.time)+'</div><div class="s-venue ai">'+e(D.venue)+'</div>'+locBtn+'<div class="s-cd ai" id="cdbox">'+cdh()+'</div><div class="sc-vign b"></div></div>';
+  var s2='<div class="sc">'+crnrs()+fxf()+'<div class="sc-vign t"></div><div class="s-eye ai">'+e(D.eye)+'</div>'+sdiv()+'<div class="s-text ai">'+e(D.tag)+'</div><div class="s-date-card ai"><span class="s-day-num">'+p.dy+'</span><div class="s-date-r"><span class="s-month-nm">'+p.mo+'</span><span class="s-year-nm">'+p.yr+'</span></div></div><div class="s-time-pill ai">SOAT '+e(D.time)+'</div><div class="s-venue ai">'+e(D.venue)+'</div>'+locBtn+'<div class="s-cd ai" id="cdbox">'+cdh()+'</div><div class="sc-vign b"></div></div>';
   
   var s3='<div class="sc">'+crnrs()+fxf()+'<div class="sc-vign t"></div>'+tband()+'<div class="s-eye ai">HURMATLI MEHMON,</div><div class="s-guest-wrap ai"><div class="s-guest">'+e(D.guest)+'!</div></div><div class="s-rsvp ai">'+e(D.rsvp)+'</div>'+sdiv()+'<div class="s-big ai">TASHRIF BUYURISHINGIZNI KUTAMIZ!</div><div class="s-sig ai">'+e(D.sig)+'</div><div class="sc-vign b"></div></div>';
   
@@ -512,6 +529,71 @@ loud().then(function(){playing=true;icon()}).catch(function(){
 
 icon();
 goTo(0);
+
+/* --- FANTASTIK INTERAKTIV OLTIN IZ EFEKTI (MAGIC TOUCH CANVAS) --- */
+(function(){
+  var canvas = document.getElementById('magicCanvas');
+  var ctx = canvas.getContext('2d');
+  var particles = [];
+
+  function resize(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  function addParticles(x, y, count){
+    for(var i=0; i<(count||3); i++){
+      particles.push({
+        x: x,
+        y: y,
+        vx: (Math.random() - 0.5) * 2.5,
+        vy: (Math.random() - 0.5) * 2.5 - 0.8,
+        size: Math.random() * 3 + 1.5,
+        alpha: 1,
+        color: Math.random() > 0.3 ? '#D4AF37' : '#FFFFFF'
+      });
+    }
+  }
+
+  window.addEventListener('mousemove', function(e){
+    addParticles(e.clientX, e.clientY, 2);
+  });
+
+  window.addEventListener('touchmove', function(e){
+    if(e.touches.length > 0){
+      addParticles(e.touches[0].clientX, e.touches[0].clientY, 3);
+    }
+  }, {passive: true});
+
+  function render(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for(var i = particles.length - 1; i >= 0; i--){
+      var p = particles[i];
+      p.x += p.vx;
+      p.y += p.vy;
+      p.alpha -= 0.02;
+      
+      if(p.alpha <= 0){
+        particles.splice(i, 1);
+        continue;
+      }
+
+      ctx.save();
+      ctx.globalAlpha = p.alpha;
+      ctx.fillStyle = p.color;
+      ctx.shadowBlur = 8;
+      ctx.shadowColor = p.color;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+    requestAnimationFrame(render);
+  }
+  render();
+})();
 </script>
 </body>
 </html>
