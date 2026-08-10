@@ -112,6 +112,16 @@ body{background:var(--TBG,#F5EAD5);font-family:'Jost',sans-serif}
 .s-loc{background:rgba(255,255,255,.08)!important;border-color:rgba(255,255,255,.12)!important;color:var(--TA2)!important}
 .swipe-hint{color:var(--TA2)}
 
+<style>
+  .swipe-hint {
+    position: absolute;
+    top: 20px; /* Ekranning yuqori qismiga joylashtirish uchun */
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: bold; /* Qalin (bold) qilish */
+    color: #ffffff; /* Oq rang */
+    z-index: 10;
+  }
 </style>
 </head>
 <body>
@@ -120,7 +130,7 @@ body{background:var(--TBG,#F5EAD5);font-family:'Jost',sans-serif}
 <div class="reel" id="reel"></div>
 </div>
 <div class="dots" id="dots"></div>
-<div class="swipe-hint" id="shint">yuqoriga suring</div>
+<div class="swipe-hint" id="shint">Tepaga suring</div>
 <button class="music-btn" id="mb" onclick="tgl()">&#9835;</button>
 <audio id="bgm" loop autoplay playsinline webkit-playsinline preload="auto" src="music.m4a"></audio>
 <script>
