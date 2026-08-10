@@ -14,14 +14,14 @@
 html,body{height:100%;height:100dvh;overflow:hidden;touch-action:none;overscroll-behavior:none;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
 body{background:#030303;font-family:'Jost',sans-serif;color:#fff}
 
-/* Surganda porlaydigan zarrachalar canvasi */
+/* Surganda va teginganda oltin nur sochuvchi canvas */
 #magicCanvas {
   position: fixed;
   inset: 0;
   width: 100vw;
   height: 100vh;
   pointer-events: none;
-  z-index: 99999;
+  z-index: 9999;
 }
 
 .vp{
@@ -79,7 +79,7 @@ body{background:#030303;font-family:'Jost',sans-serif;color:#fff}
   backdrop-filter: blur(10px) !important;
   -webkit-backdrop-filter: blur(10px) !important;
   box-shadow: 0 4px 20px rgba(0,0,0,0.6), 0 0 15px rgba(212,175,55,0.4) !important;
-  z-index: 9999 !important;
+  z-index: 8888 !important;
   animation: vipPulse 2.2s cubic-bezier(.4,0,.6,1) infinite !important;
   pointer-events: none !important;
 }
@@ -284,16 +284,17 @@ body{background:#030303;font-family:'Jost',sans-serif;color:#fff}
 .sc::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background:radial-gradient(circle at 50% 50%, rgba(212,175,55,0.08) 0%, transparent 80%)}
 .sc::after{content:'';position:absolute;inset:12px;border:1px solid rgba(212,175,55,0.3);border-radius:4px;pointer-events:none;z-index:1}
 
-/* ORQADAGI SUZIB YURUVCHI ANIMATSIYALAR */
-.fx{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:2}
-.fx i{position:absolute;top:112%;display:block;opacity:0;animation:fxFloat var(--d,10s) linear infinite;animation-delay:var(--delay,0s);will-change:top,transform,opacity}
-.fx i svg{width:100%;height:100%;display:block;filter:drop-shadow(0 0 8px rgba(212,175,55,0.8))}
+/* ORQADA O'SIMLIK/UZUK/YURAK/ZARLAR SUZISH ANIMATSIYASI */
+.fx{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
+.fx i{position:absolute;top:110%;display:block;opacity:0;animation:fxFloat var(--d,10s) linear infinite;animation-delay:var(--delay,0s);will-change:top,transform,opacity}
+.fx i svg{width:100%;height:100%;display:block;filter:drop-shadow(0 0 6px rgba(212,175,55,0.8))}
+
 @keyframes fxFloat{
-  0%{top:112%;opacity:0;transform:translateX(0) rotate(0) scale(.4)}
-  12%{opacity:var(--o,.65)}
-  50%{transform:translateX(var(--dx,22px)) rotate(calc(var(--r,140deg) * .5)) scale(1.1)}
-  88%{opacity:var(--o,.65)}
-  100%{top:-16%;opacity:0;transform:translateX(0) rotate(var(--r,140deg)) scale(.8)}
+  0%{top:110%;opacity:0;transform:translateX(0) rotate(0deg) scale(0.4)}
+  15%{opacity:var(--o,0.6)}
+  50%{transform:translateX(var(--dx,25px)) rotate(calc(var(--r,140deg) * 0.5)) scale(1)}
+  85%{opacity:var(--o,0.6)}
+  100%{top:-15%;opacity:0;transform:translateX(0) rotate(var(--r,140deg)) scale(0.7)}
 }
 
 @keyframes goldPulse{0%,100%{filter:drop-shadow(0 0 10px rgba(212,175,55,0.5))}50%{filter:drop-shadow(0 0 22px rgba(212,175,55,0.95))}}
@@ -329,7 +330,6 @@ body{background:#030303;font-family:'Jost',sans-serif;color:#fff}
 </head>
 <body>
 
-<!-- Surganda va teginganda porlaydigan zarrachalar canvasi -->
 <canvas id="magicCanvas"></canvas>
 
 <template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300"><rect width="300" height="300" fill="#0f0d0a"/><circle cx="150" cy="150" r="86" fill="none" stroke="#c9a239" stroke-width="3"/><text x="150" y="168" text-anchor="middle" font-family="Georgia,serif" font-size="72" fill="#c9a239">U&amp;E</text></svg></template>
@@ -374,23 +374,23 @@ function crnrs(){
   +'<svg class="sc-c br" viewBox="0 0 60 60" fill="none"><path d="M56 32 L56 56 L32 56" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" opacity=".8"/><circle cx="56" cy="56" r="2.5" fill="#D4AF37"/></svg>';
 }
 
-/* ORQADA SUZIB YURUVCHI ELEMENTLAR (UZUKLAR, YULDUZLAR, YURAKCHALAR) */
+/* HAR BIR SAHIFA ORQASIDA YURADIGAN SVG SHAKLLAR */
 var FXR='<svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#D4AF37"/></svg>';
 var FXK='<svg viewBox="0 0 24 24"><path d="M12 0 Q13.5 10.5 24 12 Q13.5 13.5 12 24 Q10.5 13.5 0 12 Q10.5 10.5 12 0Z" fill="#D4AF37"/></svg>';
-var FXRINGS='<svg viewBox="0 0 24 24"><circle cx="9" cy="12" r="6" fill="none" stroke="#D4AF37" stroke-width="2"/><circle cx="15" cy="12" r="6" fill="none" stroke="#D4AF37" stroke-width="2"/></svg>';
+var FXRINGS='<svg viewBox="0 0 24 24"><circle cx="9" cy="12" r="5.5" fill="none" stroke="#D4AF37" stroke-width="2"/><circle cx="15" cy="12" r="5.5" fill="none" stroke="#D4AF37" stroke-width="2"/></svg>';
 var FXD='<svg viewBox="0 0 12 12"><circle cx="6" cy="6" r="3" fill="#FFF"/></svg>';
 
 function fxf(){
   var set=[FXR,FXK,FXRINGS,FXD],html='';
-  for(var i=0;i<18;i++){
+  for(var i=0;i<20;i++){
     var m=set[Math.floor(Math.random()*set.length)];
-    var x=Math.round(Math.random()*96)+2;
-    var sz=Math.round(12+Math.random()*16);
-    var d=(7+Math.random()*8).toFixed(1);
+    var x=Math.round(Math.random()*94)+3;
+    var sz=Math.round(14+Math.random()*16);
+    var d=(6+Math.random()*7).toFixed(1);
     var delay=(-Math.random()*d).toFixed(1);
-    var dx=Math.round((Math.random()*2-1)*34);
-    var r=Math.round((Math.random()*2-1)*220);
-    var o=(0.3+Math.random()*0.45).toFixed(2);
+    var dx=Math.round((Math.random()*2-1)*35);
+    var r=Math.round((Math.random()*2-1)*200);
+    var o=(0.35+Math.random()*0.45).toFixed(2);
     html+='<i style="left:'+x+'%;width:'+sz+'px;height:'+sz+'px;--d:'+d+'s;--delay:'+delay+'s;--dx:'+dx+'px;--r:'+r+'deg;--o:'+o+'">'+m+'</i>';
   }
   return '<div class="fx">'+html+'</div>';
@@ -432,7 +432,6 @@ function buildScenes(){
   var p=fdp(D.date);
   var locBtn='<a href="'+D.loc+'" target="_blank" rel="noopener" class="s-loc ai" style="text-decoration:none"><svg viewBox="0 0 24 24" width="16" height="16" fill="#D4AF37" style="flex-shrink:0"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg><span>Xaritada Ko\'rish</span></a>';
   
-  /* HAR BIR SAHIFAGA FXF() ANIMATSIYASI ULANGANI */
   var s1='<div class="sc">'+crnrs()+fxf()+'<div class="sc-vign t"></div>'+tband()+'<div class="ai">'+MONOGRAM_SVG+'</div><div class="s-eye ai">'+e(D.eye)+'</div>'+nh()+sdiv()+'<div class="mcal ai">'+cal(D.date)+'</div><div class="sc-vign b"></div></div>';
   
   var s2='<div class="sc">'+crnrs()+fxf()+'<div class="sc-vign t"></div><div class="s-eye ai">'+e(D.eye)+'</div>'+sdiv()+'<div class="s-text ai">'+e(D.tag)+'</div><div class="s-date-card ai"><span class="s-day-num">'+p.dy+'</span><div class="s-date-r"><span class="s-month-nm">'+p.mo+'</span><span class="s-year-nm">'+p.yr+'</span></div></div><div class="s-time-pill ai">SOAT '+e(D.time)+'</div><div class="s-venue ai">'+e(D.venue)+'</div>'+locBtn+'<div class="s-cd ai" id="cdbox">'+cdh()+'</div><div class="sc-vign b"></div></div>';
@@ -540,7 +539,7 @@ loud().then(function(){playing=true;icon()}).catch(function(){
 icon();
 goTo(0);
 
-/* --- SURGANDA VA TEGINGANDA OLTIN ZARRAGALAR TASHALADIGAN EFEKT --- */
+/* SURGANDA/TEGINGANDA OLTIN PORLASH ISHLATADIGAN CANVAS EFEKTI */
 (function(){
   var canvas = document.getElementById('magicCanvas');
   var ctx = canvas.getContext('2d');
@@ -579,7 +578,7 @@ goTo(0);
 
   window.addEventListener('touchstart', function(e){
     if(e.touches.length > 0){
-      addParticles(e.touches[0].clientX, e.touches[0].clientY, 5);
+      addParticles(e.touches[0].clientX, e.touches[0].clientY, 4);
     }
   }, {passive: true});
 
