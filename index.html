@@ -14,13 +14,13 @@
 html,body{height:100%;height:100dvh;overflow:hidden;touch-action:none;overscroll-behavior:none;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
 body{background:#030303;font-family:'Jost',sans-serif;color:#fff}
 
-#magicCanvas {
+#bgCanvas {
   position: fixed;
   inset: 0;
   width: 100vw;
   height: 100vh;
   pointer-events: none;
-  z-index: 99999;
+  z-index: 1;
 }
 
 .vp{
@@ -29,7 +29,8 @@ body{background:#030303;font-family:'Jost',sans-serif;color:#fff}
   height:100dvh;
   position:relative;
   overflow:hidden;
-  background: radial-gradient(circle at 50% 30%, #1f180c 0%, #0a0805 60%, #020202 100%) !important;
+  background: radial-gradient(circle at 50% 30%, #1a140a 0%, #080604 60%, #020202 100%) !important;
+  z-index: 2;
 }
 
 .reel{position:absolute;inset:0;display:flex;flex-direction:column;transition:transform .55s cubic-bezier(.25,1,.35,1);will-change:transform}
@@ -72,7 +73,7 @@ body{background:#030303;font-family:'Jost',sans-serif;color:#fff}
   letter-spacing: 0.22em !important;
   text-transform: uppercase !important;
   padding: 8px 20px !important;
-  background: rgba(15, 12, 5, 0.8) !important;
+  background: rgba(15, 12, 5, 0.85) !important;
   border: 1px solid rgba(212, 175, 55, 0.6) !important;
   border-radius: 30px !important;
   backdrop-filter: blur(10px) !important;
@@ -182,7 +183,6 @@ body{background:#030303;font-family:'Jost',sans-serif;color:#fff}
   text-shadow: 0 0 12px rgba(255,255,255,0.3);
 }
 
-/* Zoxiddin ota va Olim ota oilalari nomidan */
 .s-sig{
   font-family: 'Jost', sans-serif !important;
   font-size: 0.88rem !important;
@@ -284,18 +284,6 @@ body{background:#030303;font-family:'Jost',sans-serif;color:#fff}
 .sc::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background:radial-gradient(circle at 50% 50%, rgba(212,175,55,0.08) 0%, transparent 80%)}
 .sc::after{content:'';position:absolute;inset:12px;border:1px solid rgba(212,175,55,0.3);border-radius:4px;pointer-events:none;z-index:1}
 
-/* Uchala sahifada ishlaydigan fozaviy animatsiya */
-.fx{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:2}
-.fx i{position:absolute;top:112%;display:block;opacity:0;animation:fxFloat var(--d,10s) linear infinite;animation-delay:var(--delay,0s);will-change:top,transform,opacity}
-.fx i svg{width:100%;height:100%;display:block;filter:drop-shadow(0 0 8px rgba(212,175,55,0.8))}
-@keyframes fxFloat{
-  0%{top:112%;opacity:0;transform:translateX(0) rotate(0) scale(.4)}
-  12%{opacity:var(--o,.65)}
-  50%{transform:translateX(var(--dx,18px)) rotate(calc(var(--r,140deg) * .5)) scale(1.1)}
-  88%{opacity:var(--o,.65)}
-  100%{top:-16%;opacity:0;transform:translateX(0) rotate(var(--r,140deg)) scale(.8)}
-}
-
 @keyframes goldPulse{0%,100%{filter:drop-shadow(0 0 10px rgba(212,175,55,0.5))}50%{filter:drop-shadow(0 0 22px rgba(212,175,55,0.95))}}
 .s-monogram{animation:goldPulse 3.5s ease-in-out infinite,float 3.5s ease-in-out infinite}
 
@@ -329,9 +317,8 @@ body{background:#030303;font-family:'Jost',sans-serif;color:#fff}
 </head>
 <body>
 
-<canvas id="magicCanvas"></canvas>
+<canvas id="bgCanvas"></canvas>
 
-<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300"><rect width="300" height="300" fill="#0f0d0a"/><circle cx="150" cy="150" r="86" fill="none" stroke="#c9a239" stroke-width="3"/><text x="150" y="168" text-anchor="middle" font-family="Georgia,serif" font-size="72" fill="#c9a239">U&amp;E</text></svg></template>
 <div class="vp t-nikoh" id="vp">
 <div class="reel" id="reel"></div>
 </div>
@@ -362,7 +349,6 @@ var MONTHS=['Yanvar','Fevral','Mart','Aprel','May','Iyun','Iyul','Avgust','Senta
 var MU=MONTHS.map(function(m){return m.toUpperCase()});
 var playing=false,cdTmr=null,cur=0,total=3;
 
-/* SHAKLI BUZILMAYDIGAN VA MUKAMMAL KO'RINADIGAN OLTIN MONOGRAMMA */
 var MONOGRAM_SVG = '<div class="s-monogram"><svg viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="44" stroke="#D4AF37" stroke-width="1.5" stroke-dasharray="4 2"/><circle cx="50" cy="50" r="38" stroke="#D4AF37" stroke-width="2"/><text x="50" y="58" text-anchor="middle" font-family="Great Vibes, cursive" font-size="34" fill="#D4AF37">U&amp;E</text></svg></div>';
 
 function e(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
@@ -372,26 +358,6 @@ function crnrs(){
   +'<svg class="sc-c tr" viewBox="0 0 60 60" fill="none"><path d="M56 28 L56 4 L32 4" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" opacity=".8"/><circle cx="56" cy="4" r="2.5" fill="#D4AF37"/></svg>'
   +'<svg class="sc-c bl" viewBox="0 0 60 60" fill="none"><path d="M4 32 L4 56 L28 56" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" opacity=".8"/><circle cx="4" cy="56" r="2.5" fill="#D4AF37"/></svg>'
   +'<svg class="sc-c br" viewBox="0 0 60 60" fill="none"><path d="M56 32 L56 56 L32 56" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" opacity=".8"/><circle cx="56" cy="56" r="2.5" fill="#D4AF37"/></svg>';
-}
-
-var FXR='<svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#D4AF37"/></svg>';
-var FXK='<svg viewBox="0 0 24 24"><path d="M12 0 Q13.5 10.5 24 12 Q13.5 13.5 12 24 Q10.5 13.5 0 12 Q10.5 10.5 12 0Z" fill="#D4AF37"/></svg>';
-var FXD='<svg viewBox="0 0 12 12"><circle cx="6" cy="6" r="3" fill="#FFF"/></svg>';
-
-function fxf(){
-  var set=[FXR,FXK,FXD],html='';
-  for(var i=0;i<18;i++){
-    var m=set[Math.floor(Math.random()*set.length)];
-    var x=Math.round(Math.random()*96)+2;
-    var sz=Math.round(10+Math.random()*14);
-    var d=(7+Math.random()*8).toFixed(1);
-    var delay=(-Math.random()*d).toFixed(1);
-    var dx=Math.round((Math.random()*2-1)*34);
-    var r=Math.round((Math.random()*2-1)*220);
-    var o=(0.25+Math.random()*0.45).toFixed(2);
-    html+='<i style="left:'+x+'%;width:'+sz+'px;height:'+sz+'px;--d:'+d+'s;--delay:'+delay+'s;--dx:'+dx+'px;--r:'+r+'deg;--o:'+o+'">'+m+'</i>';
-  }
-  return '<div class="fx">'+html+'</div>';
 }
 
 function tband(){return'<div class="sc-topband ai"><span class="sc-tbl"></span><svg viewBox="0 0 50 16" fill="none" style="width:50px;height:16px;flex-shrink:0"><path d="M25 3 L33 8 L25 13 L17 8Z" stroke="#D4AF37" stroke-width="1" fill="rgba(212,175,55,0.3)"/><circle cx="25" cy="8" r="2" fill="#FFF"/></svg><span class="sc-tbl"></span></div>'}
@@ -430,11 +396,11 @@ function buildScenes(){
   var p=fdp(D.date);
   var locBtn='<a href="'+D.loc+'" target="_blank" rel="noopener" class="s-loc ai" style="text-decoration:none"><svg viewBox="0 0 24 24" width="16" height="16" fill="#D4AF37" style="flex-shrink:0"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg><span>Xaritada Ko\'rish</span></a>';
   
-  var s1='<div class="sc">'+crnrs()+fxf()+'<div class="sc-vign t"></div>'+tband()+'<div class="ai">'+MONOGRAM_SVG+'</div><div class="s-eye ai">'+e(D.eye)+'</div>'+nh()+sdiv()+'<div class="mcal ai">'+cal(D.date)+'</div><div class="sc-vign b"></div></div>';
+  var s1='<div class="sc">'+crnrs()+'<div class="sc-vign t"></div>'+tband()+'<div class="ai">'+MONOGRAM_SVG+'</div><div class="s-eye ai">'+e(D.eye)+'</div>'+nh()+sdiv()+'<div class="mcal ai">'+cal(D.date)+'</div><div class="sc-vign b"></div></div>';
   
-  var s2='<div class="sc">'+crnrs()+fxf()+'<div class="sc-vign t"></div><div class="s-eye ai">'+e(D.eye)+'</div>'+sdiv()+'<div class="s-text ai">'+e(D.tag)+'</div><div class="s-date-card ai"><span class="s-day-num">'+p.dy+'</span><div class="s-date-r"><span class="s-month-nm">'+p.mo+'</span><span class="s-year-nm">'+p.yr+'</span></div></div><div class="s-time-pill ai">SOAT '+e(D.time)+'</div><div class="s-venue ai">'+e(D.venue)+'</div>'+locBtn+'<div class="s-cd ai" id="cdbox">'+cdh()+'</div><div class="sc-vign b"></div></div>';
+  var s2='<div class="sc">'+crnrs()+'<div class="sc-vign t"></div><div class="s-eye ai">'+e(D.eye)+'</div>'+sdiv()+'<div class="s-text ai">'+e(D.tag)+'</div><div class="s-date-card ai"><span class="s-day-num">'+p.dy+'</span><div class="s-date-r"><span class="s-month-nm">'+p.mo+'</span><span class="s-year-nm">'+p.yr+'</span></div></div><div class="s-time-pill ai">SOAT '+e(D.time)+'</div><div class="s-venue ai">'+e(D.venue)+'</div>'+locBtn+'<div class="s-cd ai" id="cdbox">'+cdh()+'</div><div class="sc-vign b"></div></div>';
   
-  var s3='<div class="sc">'+crnrs()+fxf()+'<div class="sc-vign t"></div>'+tband()+'<div class="s-eye ai">HURMATLI MEHMON,</div><div class="s-guest-wrap ai"><div class="s-guest">'+e(D.guest)+'!</div></div><div class="s-rsvp ai">'+e(D.rsvp)+'</div>'+sdiv()+'<div class="s-big ai">TASHRIF BUYURISHINGIZNI KUTAMIZ!</div><div class="s-sig ai">'+e(D.sig)+'</div><div class="sc-vign b"></div></div>';
+  var s3='<div class="sc">'+crnrs()+'<div class="sc-vign t"></div>'+tband()+'<div class="s-eye ai">HURMATLI MEHMON,</div><div class="s-guest-wrap ai"><div class="s-guest">'+e(D.guest)+'!</div></div><div class="s-rsvp ai">'+e(D.rsvp)+'</div>'+sdiv()+'<div class="s-big ai">TASHRIF BUYURISHINGIZNI KUTAMIZ!</div><div class="s-sig ai">'+e(D.sig)+'</div><div class="sc-vign b"></div></div>';
   
   return s1+s2+s3;
 }
@@ -458,11 +424,6 @@ function goTo(n){
   if(n===1){cdTmr=setInterval(function(){var b=document.getElementById('cdbox');if(b)b.innerHTML=cdh()},1000)}
   var hint=document.getElementById('shint');
   if(hint&&n>0){hint.style.display='none'}
-  
-  /* Uchinchi sahifaga o'tganda Oltin Otashinlar otilishi */
-  if(n === 2 && window.fireFireworks){
-    window.fireFireworks();
-  }
 }
 
 function animateScene(n){
@@ -542,11 +503,12 @@ loud().then(function(){playing=true;icon()}).catch(function(){
 icon();
 goTo(0);
 
-/* --- FANTASTIK INTERAKTIV OLTIN IZ VA OTASHINLAR EFEKTI --- */
+/* --- CAFOLATLANGAN CANVAS ANIMATSIYASI (UCHALA SAHIFA UCHUN HAM ISHLAYDI) --- */
 (function(){
-  var canvas = document.getElementById('magicCanvas');
+  var canvas = document.getElementById('bgCanvas');
   var ctx = canvas.getContext('2d');
   var particles = [];
+  var count = 35;
 
   function resize(){
     canvas.width = window.innerWidth;
@@ -555,71 +517,43 @@ goTo(0);
   window.addEventListener('resize', resize);
   resize();
 
-  function addParticles(x, y, count){
-    for(var i=0; i<(count||3); i++){
-      particles.push({
-        x: x,
-        y: y,
-        vx: (Math.random() - 0.5) * 3,
-        vy: (Math.random() - 0.5) * 3 - 0.8,
-        size: Math.random() * 3.5 + 1.5,
-        alpha: 1,
-        color: Math.random() > 0.25 ? '#D4AF37' : '#FFFFFF'
-      });
-    }
+  for(var i=0; i<count; i++){
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      radius: Math.random() * 2.2 + 0.8,
+      vy: -(Math.random() * 0.4 + 0.15),
+      vx: (Math.random() - 0.5) * 0.2,
+      alpha: Math.random() * 0.6 + 0.2,
+      pulse: Math.random() * 0.02 + 0.005
+    });
   }
-
-  window.fireFireworks = function(){
-    var cx = canvas.width / 2;
-    var cy = canvas.height / 2;
-    for(var i=0; i<80; i++){
-      var angle = Math.random() * Math.PI * 2;
-      var speed = Math.random() * 8 + 2;
-      particles.push({
-        x: cx,
-        y: cy,
-        vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed,
-        size: Math.random() * 4 + 2,
-        alpha: 1,
-        color: Math.random() > 0.3 ? '#D4AF37' : (Math.random() > 0.5 ? '#FFF' : '#F7E396')
-      });
-    }
-  };
-
-  window.addEventListener('mousemove', function(e){
-    addParticles(e.clientX, e.clientY, 2);
-  });
-
-  window.addEventListener('touchmove', function(e){
-    if(e.touches.length > 0){
-      addParticles(e.touches[0].clientX, e.touches[0].clientY, 3);
-    }
-  }, {passive: true});
 
   function render(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for(var i = particles.length - 1; i >= 0; i--){
+
+    for(var i=0; i<particles.length; i++){
       var p = particles[i];
-      p.x += p.vx;
       p.y += p.vy;
-      p.alpha -= 0.018;
-      
-      if(p.alpha <= 0){
-        particles.splice(i, 1);
-        continue;
+      p.x += p.vx;
+      p.alpha += Math.sin(Date.now() * p.pulse) * 0.005;
+
+      if(p.y < -10){
+        p.y = canvas.height + 10;
+        p.x = Math.random() * canvas.width;
       }
 
       ctx.save();
-      ctx.globalAlpha = p.alpha;
-      ctx.fillStyle = p.color;
+      ctx.globalAlpha = Math.max(0.1, Math.min(0.8, p.alpha));
+      ctx.fillStyle = '#D4AF37';
       ctx.shadowBlur = 10;
-      ctx.shadowColor = p.color;
+      ctx.shadowColor = '#D4AF37';
       ctx.beginPath();
-      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
       ctx.fill();
       ctx.restore();
     }
+
     requestAnimationFrame(render);
   }
   render();
