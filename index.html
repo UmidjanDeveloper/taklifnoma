@@ -200,7 +200,6 @@ body{background:#030303;font-family:'Jost',sans-serif;color:#fff}
   line-height: 1.5 !important;
 }
 
-/* Monogramma gerb uslubi */
 .s-monogram {
   width: 95px;
   height: 95px;
@@ -285,6 +284,7 @@ body{background:#030303;font-family:'Jost',sans-serif;color:#fff}
 .sc::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background:radial-gradient(circle at 50% 50%, rgba(212,175,55,0.08) 0%, transparent 80%)}
 .sc::after{content:'';position:absolute;inset:12px;border:1px solid rgba(212,175,55,0.3);border-radius:4px;pointer-events:none;z-index:1}
 
+/* Uchala sahifada ishlaydigan fozaviy animatsiya */
 .fx{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:2}
 .fx i{position:absolute;top:112%;display:block;opacity:0;animation:fxFloat var(--d,10s) linear infinite;animation-delay:var(--delay,0s);will-change:top,transform,opacity}
 .fx i svg{width:100%;height:100%;display:block;filter:drop-shadow(0 0 8px rgba(212,175,55,0.8))}
@@ -362,7 +362,7 @@ var MONTHS=['Yanvar','Fevral','Mart','Aprel','May','Iyun','Iyul','Avgust','Senta
 var MU=MONTHS.map(function(m){return m.toUpperCase()});
 var playing=false,cdTmr=null,cur=0,total=3;
 
-/* SHAKLI BUZILMAYDIGAN VA MUHAMMAL KO'RINADIGAN OLTIN MONOGRAMMA */
+/* SHAKLI BUZILMAYDIGAN VA MUKAMMAL KO'RINADIGAN OLTIN MONOGRAMMA */
 var MONOGRAM_SVG = '<div class="s-monogram"><svg viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="44" stroke="#D4AF37" stroke-width="1.5" stroke-dasharray="4 2"/><circle cx="50" cy="50" r="38" stroke="#D4AF37" stroke-width="2"/><text x="50" y="58" text-anchor="middle" font-family="Great Vibes, cursive" font-size="34" fill="#D4AF37">U&amp;E</text></svg></div>';
 
 function e(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
@@ -459,7 +459,7 @@ function goTo(n){
   var hint=document.getElementById('shint');
   if(hint&&n>0){hint.style.display='none'}
   
-  /* Har gal uchinchi sahifaga o'tganda Oltin Otashinlar (Fireworks) otiladi */
+  /* Uchinchi sahifaga o'tganda Oltin Otashinlar otilishi */
   if(n === 2 && window.fireFireworks){
     window.fireFireworks();
   }
@@ -569,7 +569,6 @@ goTo(0);
     }
   }
 
-  /* Oltin Otashin (Fireworks) funksiyasi */
   window.fireFireworks = function(){
     var cx = canvas.width / 2;
     var cy = canvas.height / 2;
